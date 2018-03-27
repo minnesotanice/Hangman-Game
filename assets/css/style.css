@@ -7,12 +7,18 @@
 
 html,
 body {
-    background-image: url("../images/chalkboard.jpg");
+    background-image: url("../images/chalkboard-black.jpg");
     background-size: cover;
-    background-color: darkgreen;
+    background-color: black;
     box-sizing: border-box;
     color: white;
     font-family: "DK Crayon Crumble", Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    line-height: 1.4em;
+    text-align: center;
+    text-shadow: 2px 2px #000;
+    text-transform: uppercase;
+
 }
 
 img {
@@ -21,12 +27,31 @@ img {
 }
 
 /* CLEAR FIX */
-
 /* ::  more widely adopted for pseudo elements because it provides support for IE8 */
-
 .clear-fix::after {
     content: "";
     display: block;
     clear: both;
 }
 
+h1 {
+    font-size: 3em;
+    margin: .5em;
+    
+}
+
+.chart-border {
+    border: 3px dotted white;
+}
+
+.chart-picture {
+    text-align: center;
+}
+
+.chart-text {
+    text-align: center;
+}
+
+.copyright {
+    font-size: .5em;
+}
