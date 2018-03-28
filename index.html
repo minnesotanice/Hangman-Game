@@ -86,6 +86,7 @@
                 </p>
                 <p id="js-number-of-guesses">
                     <!-- var numberOfGuessesValue displays here -->
+                    &nbsp;
                 </p>
 
                 <!-- LETTERS ALREADY GUESSED -->
@@ -132,23 +133,36 @@
             numberOfGuessesID.textContent = numberOfGuessesValue;
 
             // every time a key is pressed decrement number of guesses left until 0
-            for ( i=12 ; i>0 ; i--) {
+            // for ( i=12 ; i>0 ; i--) {
                 
-            }
+            // }
 
 
+            
+            var userGuessID = document.getElementById("js-user-guess");
+            var userGuessLetter = event.charCode;
+
+            document.onkeypress = function (event) {
 
 
+                    var userGuessLetter = event.key;
+
+                    console.log(userGuessLetter);
 
 
-            // Let's start by grabbing a reference to the <span> below.
-            // var userGuessID = document.getElementById("js-user-guess");
-            // var userGuessLetter = event.charCode;
+                    // CHECK IF userGuessLetter IS A LETTER IN THE WORD (in correctLetters array)
+                    /*
+                    if () {
+                        // true - do this
 
-            // document.onkeypress = function (event) {
-            //     // userGuessID.textContent = event.key;
-            //         console.log(userGuessLetter);
-            //     };
+                    } else {
+                        // false - do this
+                        // make the key that is hit show up in "Guessed Letters"
+                        // userGuessID.textContent = event.key;
+                    }
+                    */
+                    
+                };
 
             
 
