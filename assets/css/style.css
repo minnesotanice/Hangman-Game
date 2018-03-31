@@ -40,6 +40,11 @@ h1 {
     
 }
 
+h2.currentWordStyle {
+    color: chartreuse;
+    letter-spacing: 1em;
+}
+
 .chart-border {
     border: 3px dotted white;
 }
@@ -50,6 +55,10 @@ h1 {
 
 .chart-text {
     text-align: center;
+}
+
+.user-guess-incorrect {
+    color: yellow;
 }
 
 .copyright {

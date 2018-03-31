@@ -1,73 +1,223 @@
+// WINS WHEN GAME STARTS
+var wins = 0;
 
-//  Refer to in class exercise to figure out how to start game by hitting the key. Rock paper scissors game. 
+// later create array of word choices
+// for now try to get game working with this
+var answerWord = "notebook";
 
-//  Refer to demo in class that so if you hear the key and he shows up on the screen. 
+// CORRECT LETTERS
+// used to create the array of correct letters
+var answerWordArray = []
+// array of correct letters
+var answerLetterArray = [];
 
-//  For number of gases, anytime a key is pressed after the game starts the number of gases decrements by i—.  As opposed to i++ that we have been using in class so far. 
+// LAST LETTER GUESSED
+var userGuessLetter = "";
 
-///////////////////////////////////
+// LIST OF GUESSED LETTERS
+var arrayOfGuessedLetters = [];
 
-//  Write the code easiest to hardest. First, do the thing with the game starts when you press a key. Second, do the thing where number of gases decrements every time a key is hit. 
+// MAX NUMBER OF GUESSES
+var numberOfGuessesValue = 12;
 
-///////////////////////////////////
+// IDENTIFY #js-user-guess ON PAGE
+var userGuessID = document.getElementById("js-user-guess");
 
+// IDENTIFY #js-number-of-guesses ON PAGE
+var numberOfGuessesID = document.getElementById("js-number-of-guesses");
 
-
-
-//  Key is pressed to start game 
-
-//  this can be changed to an array if more answers are needed 
-//  other answers might be teacher, books, classroom, pencils, paper, eraser
-var  answer = "chalkboard";
-
-//  create array from letters in answer 
-// https://stackoverflow.com/questions/6484670/how-do-i-split-a-string-into-an-array-of-characters
-var correctLetters;
-
-
-//  initially set to 12 but will be decremented with each guess (each  time the key is hit after the start of the game ) 
-var numberOfGuesses = 12;
-
-
-
-//  originally set to zero but will be incremented with every win 
-var wins;
+// IDENTIFY #js-user-guess-correct ON PAGE
+// var userGuessCorrect = document.getElementById("js-user-guess-correct");
+var userGuessCorrect = document.getElementById("js-current-word");
 
 
+// IDENTIFY #js-user-guess-incorrect ON PAGE
+var userGuessIncorrect = document.getElementById("js-user-guess-incorrect");
+
+// IDENTIFY END OF GAME
+var noGuessesLeft = function () {
+    // if no guesses remaining set alert
+    if (numberOfGuessesValue === 0) {
+        alert("No more guesses!");
+    }
+};
+
+var updateNumberOfGuessesValue = function () {
+    // UPDATE NUMBER OF GUESSES
+    if (numberOfGuessesValue > 0) {
+        numberOfGuessesValue--;
+        numberOfGuessesID.textContent = numberOfGuessesValue;
+    }
+    // WHEN 0 GUESSES ALERT USER
+    setTimeout(function () {
+        noGuessesLeft();
+    }, 50);
+
+};
+
+// SET NUMBER OF GUESSES 
+var gameSetup = function () {
+    numberOfGuessesID.textContent = numberOfGuessesValue;
+    alert("Let the game of Hangman begin! You have 12 guesses. Good luck!");
+
+};
+
+// CREATES ARRAY VALUE FOR answerWordArray
+var makeAnswerWordArray = function () {
+
+    var emptyArray = answerWord;
+    for (var i = 0; i < emptyArray.length; i++) {
+
+        answerWordArray.push(emptyArray.charAt(i));
+
+    }
+
+};
+
+// IS userGuessValue  INCLUDED IN answerWordArray? 
+var isInArray = function (value, array) {
+    return array.indexOf(value) > -1;
+};
+
+
+var guessedLetters = [];
+var guessingWord = []; // This will be the word we actually build to match the current word
+var printAnswer = function () {
+    // Build the guessing word and clear it out
+    for (var i = 0; i < answerWord.length; i++) {
+        guessingWord.push("_");
+    }
+}
+// //  Updates the display on the HTML Page
+var guessingWordText = "";
+
+function updateDisplay() {
+
+    // document.getElementById("totalWins").innerText = wins;
+
+    // Display how much of the word we've already guessed on screen.
+    // Printing the array would add commas (,) - so we concatenate a string from each value in the array.
+    // var guessingWordText = "";
+    for (var i = 0; i < guessingWord.length; i++) {
+        guessingWordText += guessingWord[i];
+    }
+
+    userGuessCorrect.innerText = guessingWordText;
+
+};
+
+
+// This function takes a letter and finds all instances of 
+// appearance in the string and replaces them in the guess word.
+function evaluateGuess(letter) {
+    // Array to store positions of letters in string
+    var positions = [];
+
+    String.prototype.replaceAt = function (index, replacement) {
+        return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+    }
+
+    // Loop through word finding all instances of guessed letter, store the indicies in an array.
+    for (var i = 0; i < answerWord.length; i++) {
+        if (answerWord[i] === letter) {
+            positions.push(i);
+        }
+
+    }
+
+    for (var i = 0; i < positions.length; i++) {
+
+        // set variable to whatever string is in #js-current-word
+        var currentString = document.getElementById("js-current-word").innerHTML;
+
+        // update variable to include letter guessed
+        var currentString = currentString.replaceAt(positions[i], letter);
+
+        // update content of #js-current-word with new variable
+        userGuessCorrect.innerText = currentString;
+
+
+        
+        // currentString has underscores
+        // currentString.innerHTML = _;
+
+        // function hasUnderscores() {
+        //     //validation code
+        //     document.getElementById("js-current-word").innerHTML = "_";
+        //     return true;
+        // }
+
+        // if (hasUnderscores()) {
+        //     //Another function code
+        //     console.log("sure does");
+        // } else {
+        //     console.log("sure does NOT");
+        // };
+
+
+    }
+
+};
 
 
 
 
+// START GAME
+document.onkeyup = function (event) {
+
+    gameSetup();
+
+    makeAnswerWordArray();
+
+    printAnswer();
+
+    updateDisplay();
+
+    document.onkeyup = function (event) {
+
+        // record keystroke as variable
+        // not sure why this won't work outside this function
+        var userGuessLetter = event.key;
+
+        // test to see if the user keystroke (guess) is captured as a variable
+        console.log(userGuessLetter);
+
+        // console.log(isInArray( userGuessLetter, answerWordArray));               
+
+        if (isInArray(userGuessLetter, answerWordArray)) {
+
+            // alert("correct guess");
+
+            evaluateGuess(userGuessLetter);
+
+            // checkForWin();
+
+        } else {
+
+            // alert("incorrect guess");
+
+            var existingWrongLetters = userGuessIncorrect.innerHTML;
+
+            // explained  by Andrey, how to append new letters instead of just replace existing content. the below code will not work. it is psuedo code.
+            // element.textContent = element.textContent + 'b';
+            userGuessIncorrect.textContent = existingWrongLetters + " " + userGuessLetter;
+
+            updateNumberOfGuessesValue();
+
+            // console.log(answerWordArray);
+
+        };
+
+    };
+
+};
 
 
+// GENERAL RULES
+// arrays are for looping
+// objects are for calling specific properties
 
-
-
-
-
-
-
-
-/////////////////////////
-
-
-// create one word that is going to be guessed. 
-    // figure out later if we need to do more.
-
-// number of guesses allowed is 12
-
-// usr presses key to start game
-
-
-
-// user hits key to guess
-    // "Number of Guesses Remaining" decreases by 1
-    // script checks to see if letter is in word
-        // if letter is NOT in word, letter displays under "Letters Already Guessed"
-        // if letter IS in word, it appears in the appropriate place/places under "Current Word"
-
-// game ends when word is guessed or no guesses remain
-    // WIN if word is guessed, 
-        // number under "Wins" increases by 1
-        // word appears above 
-    // LOSS (video doesn't say) Next game starts??????
+// WHISTLES AND BELLS THAT COULD BE ADDED
+//////// before user presses key to start game, all other elements in <section> tag have .hidden class applied // after user starts game, "PRESS ANY KEY TO GET STARTED!" has hidden class applied and all other elements in <section> tag have .hidden class removed
+//////// <footer> tag should be sticky so copyright stays at bottom of page
+/////// deal with issue of h2#js-user-guess-incorrect changing height when user makes first guess // possible solution: <p> tag for h2#js-user-guess-incorrect should contain &nbsp; when game initializes. when user makes FIRST guess only, instead of appending guess to existing content, overwrite the &nbsp; content so it doesn't appear as a guess // another possible solution: have a <span> tag in the h2#js-user-guess-incorrect that has tall content like | and set the the opacity to 0
