@@ -1,3 +1,32 @@
+// LIST OF THINGS THAT NEED TO BE DONE
+
+// // // Make "PRESS ANY KEY TO GET STARTED!" message hidden after the player has clicked any key to start the  game.
+
+// // // Put guessed letters into arrays.
+// // // // // // Guessed letters that are correct in one array. This could be used to check when the same  letter is guessed multiple times.  An alert could be used to notify user that it is a duplicate guess. These could also be used to determine a win. 
+// // // // // // Incorrectly guessed letters in another array. This could be used to check when the same  letter is guessed multiple times. An alert could be used to notify user that it is a duplicate guess. If a duplicate guess is made, the user would not lose a guess.
+
+// // // var answer needs to be changed to an array so more answers can be stored. This will also effect the syntax when  var answer is called. Math.random could be used to ensure the words aren't always called in the same order. A larger array of answers would help with that as well.
+
+// // // Currently a player runs out of guesses an alert pops up to notify them. The player clicks OK and nothing happens with the existing game. Need to run a reset function described later in notes.
+
+
+// // // If player guesses all letters in answerLetterArray:
+// // // // // //  Alert, "Nice job! You win this round!"
+// // // // // //  Player clicks OK
+// // // // // //  wins variable incremented
+// // // // // //  display updated to show new value of wins variable
+// // // // // //  remove correctly guessed word from answers array.
+// // // // // // Run a reset function to set up a new game.
+
+// // // Regardless of wether player wins or loses the game, a reset function is run to reset the game. 
+// // // // // //  If answer array is not empty, new answer from answer array should be used to set up the next game. 
+// // // // // // // // // // // // The following variables should be set to original values: correctly guessed letter, incorrectly guessed letters, number of guesses left.
+// // // // // //  If answer array is empty alert "Congratulations, you have guessed all of the words!". 
+// // // // // // // // // // // // The hidden class should be removed from the "PRESS ANY KEY TO GET STARTED!" message. 
+
+
+
 // WINS WHEN GAME STARTS
 var wins = 0;
 
@@ -9,7 +38,7 @@ var answerWord = "notebook";
 // used to create the array of correct letters
 var answerWordArray = []
 // array of correct letters
-var answerLetterArray = [];
+// var answerLetterArray = [];
 
 // LAST LETTER GUESSED
 var userGuessLetter = "";
@@ -88,16 +117,11 @@ var printAnswer = function () {
         guessingWord.push("_");
     }
 }
-// //  Updates the display on the HTML Page
+// Updates the display on the HTML Page
 var guessingWordText = "";
 
 function updateDisplay() {
 
-    // document.getElementById("totalWins").innerText = wins;
-
-    // Display how much of the word we've already guessed on screen.
-    // Printing the array would add commas (,) - so we concatenate a string from each value in the array.
-    // var guessingWordText = "";
     for (var i = 0; i < guessingWord.length; i++) {
         guessingWordText += guessingWord[i];
     }
@@ -137,7 +161,7 @@ function evaluateGuess(letter) {
         userGuessCorrect.innerText = currentString;
 
 
-        
+        // UNSUCESSFUL ATTEMPT TO DETERMINE IF CORRECT WORD WAS GUESSED
         // currentString has underscores
         // currentString.innerHTML = _;
 
@@ -179,10 +203,11 @@ document.onkeyup = function (event) {
         // not sure why this won't work outside this function
         var userGuessLetter = event.key;
 
-        // test to see if the user keystroke (guess) is captured as a variable
-        console.log(userGuessLetter);
+        // CREATE FUNCTION CHECK userGuessLetter
+        // userGuessLetter needs to be checked to make sure it is a letter. Could be crossed reference with a array of alphabet letters.
+        // if userGuessLetter is not a letter, do nothing
+        // if userGuessLetter is a letter and is not lowercase, convert to lowercase before checking to see if letter is in word        
 
-        // console.log(isInArray( userGuessLetter, answerWordArray));               
 
         if (isInArray(userGuessLetter, answerWordArray)) {
 
