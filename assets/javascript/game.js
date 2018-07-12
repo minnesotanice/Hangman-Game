@@ -133,7 +133,7 @@ function updateDisplay() {
 
 // This function takes a letter and finds all instances of 
 // appearance in the string and replaces them in the guess word.
-function evaluateGuess(letter) {
+function showCorrectLetters(letter) {
     // Array to store positions of letters in string
     var positions = [];
 
@@ -183,7 +183,37 @@ function evaluateGuess(letter) {
 
 };
 
+// After it has been determined that a letter has not been guessed already
+// this function looks for userGuessLetter in answerWordArray
+function uniqueGuess(userGuessLetter) {
 
+    console.log("uniqueGuess function has fired!");
+    console.log("userGuessLetter is", userGuessLetter);
+    console.log("answerWordArray is", answerWordArray);
+
+    if (isInArray(userGuessLetter, answerWordArray)) {
+    // if in answerWordArray, replace dashes with letters
+
+        console.log("inside uniqueGuess if statement");
+        showCorrectLetters(userGuessLetter);
+
+
+    } else {
+    // in not in answerWordArray, add letter to incorrect guesses
+        // alert("incorrect guess");
+
+        var existingWrongLetters = userGuessIncorrect.innerHTML;
+
+        // explained  by Andrey, how to append new letters instead of just replace existing content. the below code will not work. it is psuedo code.
+        // element.textContent = element.textContent + 'b';
+        userGuessIncorrect.textContent = existingWrongLetters + " " + userGuessLetter;
+
+        updateNumberOfGuessesValue();
+
+        // console.log(answerWordArray);
+
+    };
+}
 
 
 // START GAME
@@ -206,36 +236,36 @@ document.onkeyup = function (event) {
         // CREATE FUNCTION CHECK userGuessLetter
         // userGuessLetter needs to be checked to make sure it is a letter. Could be crossed reference with a array of alphabet letters.
         // if userGuessLetter is not a letter, do nothing
-        // if userGuessLetter is a letter and is not lowercase, convert to lowercase before checking to see if letter is in word        
+        // if userGuessLetter is a letter and is not lowercase, convert to lowercase before checking to see if letter is in word  
 
 
-        if (isInArray(userGuessLetter, answerWordArray)) {
 
-            // alert("correct guess");
-
-            evaluateGuess(userGuessLetter);
-
-            // checkForWin();
-
+        console.log("arrayOfGuessedLetters before guess is", arrayOfGuessedLetters);
+        console.log("userGuessLetter is", userGuessLetter);
+        // has letter been guessed already?
+        // is userGuessLetter in arrayOfGuessedLetters
+        if (isInArray(userGuessLetter, arrayOfGuessedLetters)) {
+            alert("You have already guessed this letter!");
         } else {
 
-            // alert("incorrect guess");
+            console.log("inside else statement just before uniqueGuess function is fired. userGuessLetter is ", userGuessLetter);
+            uniqueGuess(userGuessLetter); 
 
-            var existingWrongLetters = userGuessIncorrect.innerHTML;
+            // add letter to arrayOfGuessedLetters
+            arrayOfGuessedLetters.push(userGuessLetter);
+            console.log("updated arrayOfGuessedLetters is", arrayOfGuessedLetters);
 
-            // explained  by Andrey, how to append new letters instead of just replace existing content. the below code will not work. it is psuedo code.
-            // element.textContent = element.textContent + 'b';
-            userGuessIncorrect.textContent = existingWrongLetters + " " + userGuessLetter;
+            
+        }
 
-            updateNumberOfGuessesValue();
 
-            // console.log(answerWordArray);
 
-        };
 
     };
 
 };
+
+
 
 
 // GENERAL RULES
