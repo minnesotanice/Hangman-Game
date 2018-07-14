@@ -67,7 +67,10 @@ var userGuessIncorrect = document.getElementById("js-user-guess-incorrect");
 var noGuessesLeft = function () {
     // if no guesses remaining set alert
     if (numberOfGuessesValue === 0) {
-        alert("No more guesses!");
+        
+        alert("No more guesses! Click OK to play a new game.");
+        location.reload();
+
     }
 };
 
@@ -267,7 +270,7 @@ document.onkeyup = function (event) {
 
 
 
-
+startGame();
 // GENERAL RULES
 // arrays are for looping
 // objects are for calling specific properties
